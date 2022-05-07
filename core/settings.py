@@ -1,5 +1,6 @@
 import os
 from decouple import config
+from django.template.context_processors import media
 from unipath import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -119,6 +120,5 @@ STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/static'),
 )
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/media/'
 #############################################################
 #############################################################
