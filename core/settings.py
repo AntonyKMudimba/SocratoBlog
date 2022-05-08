@@ -25,9 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.authentication',
-    'apps.home.apps',
-    'apps.blog',
+    'authentication',
+    'home.apps',
+    'blog',
     'ckeditor',
 ]
 
@@ -45,7 +45,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'core.urls'
 LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in home/urls.py
-TEMPLATE_DIR = os.path.join(CORE_DIR, "apps/templates")  # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(CORE_DIR, "/templates")  # ROOT dir for templates
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TEMPLATES = [
@@ -117,7 +117,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collect static to find static files.
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'apps/static'),
+    os.path.join(CORE_DIR, '/static'),
 )
 MEDIA_URL = '/media/'
 #############################################################
