@@ -5,15 +5,14 @@ from django.template import loader
 from django.urls import reverse
 
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
-
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.
@@ -25,7 +24,6 @@ def pages(request):
         if load_template == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
-
         html_template = loader.get_template('home/' + load_template)
         return HttpResponse(html_template.render(context, request))
 
