@@ -1,10 +1,11 @@
-from django.urls import path, re_path
+from django.urls import path
+
 from home import views
 
 urlpatterns = [
-    # The home page
-    path('', views.index, name='home'),
-    # Matches any html file
-    re_path(r'^.*\.*', views.pages, name='pages'),
+    path("home/", views.AuthorHome.as_view(), name="author_home"),
+    path("profile/", views.Profile.as_view(), name="author_profile"),
+    path("articles/", views.Articles.as_view(), name="author_articles"),
+    path("create/", views.CreateArticle.as_view(), name="author_create"),
 
 ]
