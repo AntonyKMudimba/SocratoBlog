@@ -1,0 +1,66 @@
+{% extends 'dashboard/base/base.html' %}
+{% load static %}
+{% block title %} Create Blog Post | Dashboard {% endblock %}
+{% block custom_css %}
+    <script src="https://cdn.tiny.cloud/1/8muaa49u08hewwwtqi780x210hpwrel97kgqbff9em1fbiqw/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+{% endblock %}
+
+{% block custom_header %}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-primary" {% if message.tags %}
+                     class="{{ message.tags }}"{% endif %}>{{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add Blog Post</h6>
+        </div>
+        <div class="row " style="padding: 20px;">
+            <div class="col-10 mx-auto">
+                <form action="{% url 'create_post' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form.as_p }}
+                    <input type="submit" value="submit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        function filterFunction() {
+            let input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            const div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+            let txtValue;
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+{% endblock %}
