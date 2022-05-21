@@ -7,8 +7,15 @@ class CatAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+class BlogAdmin(admin.ModelAdmin):
+    model = Blog
+    list_display = ["title", "category", "status", "visible", "get_author"]
+    search_fields = ["title"]
+    list_filter = ["category", "status", "visible"]
+
+
 admin.site.register(Category, CatAdmin)
-admin.site.register(Blog)
+admin.site.register(Blog, BlogAdmin)
 admin.site.register(Comment)
 admin.site.register(Reply)
 admin.site.register(Tag)

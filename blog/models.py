@@ -57,6 +57,9 @@ class Blog(models.Model):
         short = self.detail[:30]
         return short
 
+    def get_author(self):
+        return f"{self.author.first_name} {self.author.last_name}"
+
     @property
     def image_url(self):
         if self.cover_image and hasattr(self.cover_image, 'url'):
