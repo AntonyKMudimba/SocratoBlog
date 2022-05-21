@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.db.models.fields import EmailField
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Blog, Catagory, Tag, EmailSignUp, Comment
+from .models import Blog, Category, Tag, EmailSignUp, Comment
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.contrib import messages
@@ -80,7 +80,7 @@ class SingleBlogView(View):
 # Catagory View
 class CatagoryView(View):
     def get(self, request, slug, *args, **kwargs):
-        catagory_obj = get_object_or_404(Catagory, slug=slug)
+        catagory_obj = get_object_or_404(Category, slug=slug)
         # post = catagory_obj.blog_set.all().order_by('-id')
         post = Blog.objects.filter(category=catagory_obj,
                                    status='active', visible=True) \
@@ -167,15 +167,15 @@ class CommentView(View):
 
 
 def test(request):
-    catagory_obj = Catagory.objects.all()
-    cat = Catagory.objects.all().count()
+    catagory_obj = Category.objects.all()
+    cat = Category.objects.all().count()
     lent = len(catagory_obj)
     # post = Catagory.blog_set.count()
     # post = Blog.objects.filter(catagories__icontains = catagory_obj).count()
 
     # src = https://able.bio/rhett/how-to-order-by-count-of-a-foreignkey-field-in-django--26y1ug1
 
-    post = Catagory.objects.all() \
+    post = Category.objects.all() \
         .annotate(post_count=Count('blog')) \
         .order_by('-post_count')
     context = {

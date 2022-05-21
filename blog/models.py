@@ -6,15 +6,15 @@ from dashboard.models import Author
 from django.utils.html import format_html
 
 
-# Catagory model
-class Catagory(models.Model):
+# Category model
+class Category(models.Model):
     name = models.CharField(max_length=200, null=True)
     slug = models.SlugField(null=True)
     image = models.CharField(max_length=300, null=True, blank=True)
     description = models.CharField(max_length=500, null=True, blank=True, verbose_name='Description')
 
     class Meta:
-        verbose_name_plural = 'Catagory'
+        verbose_name_plural = 'Category'
 
     def __str__(self):
         return str(self.name)
@@ -40,8 +40,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200, null=True)
     detail = RichTextField()
     cover_image = models.ImageField(upload_to='images/media', null=True, blank=True)
-    # catagories = models.ManyToManyField(Catagory)
-    category = models.ForeignKey(Catagory, on_delete=models.DO_NOTHING, null=True)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     status = models.CharField(max_length=20, choices=status, default='pending')
     # show_hide = models.CharField(max_length=5,choices=visibility, default='show')

@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from blog.models import Blog, Catagory, Tag
+from blog.models import Blog, Category, Tag
 from .forms import ArticleForm
 from .models import Author
 
@@ -198,7 +198,7 @@ class CatagoryFunction(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        catagory_obj = Catagory.objects.all().order_by('-id')
+        catagory_obj = Category.objects.all().order_by('-id')
         context = {
             'catagory': catagory_obj
         }
@@ -217,12 +217,12 @@ class AddCatagory(View):
     def post(self, request):
         if request.method == 'POST':
             catagory = request.POST.get('catagory')
-            cat_obj = Catagory.objects.filter(name=catagory)
+            cat_obj = Category.objects.filter(name=catagory)
             if cat_obj:
                 messages.warning(request, 'Sorry This category already in Databse')
                 return redirect('category')
             else:
-                obj = Catagory.objects.create(name=catagory)
+                obj = Category.objects.create(name=catagory)
                 obj.save()
                 messages.success(request, 'Category successfully Added')
                 return redirect('category')
@@ -235,7 +235,7 @@ class UpdateCategory(View):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, id):
-        obj = get_object_or_404(Catagory, id=id)
+        obj = get_object_or_404(Category, id=id)
         obj.name = request.POST.get('category')
         obj.save()
         return redirect('category')
@@ -248,7 +248,7 @@ class DeleteCategory(View):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, id):
-        obj = get_object_or_404(Catagory, id=id)
+        obj = get_object_or_404(Category, id=id)
         obj.delete()
         return redirect('category')
 
@@ -319,7 +319,7 @@ class CreatePost(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        category = Catagory.objects.all()
+        category = Category.objects.all()
         form = ArticleForm()
         context = {
             'category': category,
@@ -335,7 +335,7 @@ class CreatePost(View):
         # tag = request.POST.get('category')
         # tag_obj = Tag.objects.get(name=tag)
         category = request.POST.get('category')
-        cat_obj = Catagory.objects.get(pk=category)
+        cat_obj = Category.objects.get(pk=category)
         post_obj = Blog(author=author, title=title, detail=detail, cover_image=image, category=cat_obj)
         post_obj.save(post_obj)
         messages.success(request, 'created Post Successfully')
@@ -379,7 +379,7 @@ class EditPost(View):
 
     def get(self, request, id):
         obj = get_object_or_404(Blog, id=id)
-        cat_obj = Catagory.objects.all()
+        cat_obj = Category.objects.all()
         initial = {
             "title": obj.title,
             "content": obj.detail,
@@ -399,8 +399,8 @@ class EditPost(View):
         obj.detail = request.POST.get('content')
         obj.image = request.FILES.get('cover_image')
         category = request.POST.get('category')
-        cat_obj = Catagory.objects.get(pk=category)
-        obj.cat_obj = Catagory.objects.get(name=cat_obj)
+        cat_obj = Category.objects.get(pk=category)
+        obj.cat_obj = Category.objects.get(name=cat_obj)
         obj.save()
         messages.success(request, 'Post has been Updated')
         return redirect('all_post')
