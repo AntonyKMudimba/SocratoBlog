@@ -20,7 +20,7 @@
                                     <a class="text-dark" href="{% url 'single_blog' p.id %}"> {{ p.title }} </a>
                                 </h2>
                                 <p class="card-text">
-                                    {{ p.detail|truncatechars:100 }}
+                                    {{ p.detail|truncatechars:200|safe }}
                                 </p>
                                 <div>
                                     <small class="d-block">

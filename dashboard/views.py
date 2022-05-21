@@ -14,6 +14,7 @@ from .forms import ArticleForm
 from .models import Author
 
 
+# QQJZ_UvQBd4r
 # user dashboard views
 class Dashboard(View):
     @method_decorator(login_required(login_url='login'))

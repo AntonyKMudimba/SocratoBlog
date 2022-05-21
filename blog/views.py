@@ -82,10 +82,10 @@ class CatagoryView(View):
     def get(self, request, slug, *args, **kwargs):
         catagory_obj = get_object_or_404(Catagory, slug=slug)
         # post = catagory_obj.blog_set.all().order_by('-id')
-        post = Blog.objects.filter(catagories=catagory_obj, \
+        post = Blog.objects.filter(category=catagory_obj,
                                    status='active', visible=True) \
             .order_by('-created_at')
-        popular = Blog.objects.filter(catagories=catagory_obj, \
+        popular = Blog.objects.filter(category=catagory_obj,
                                       status='active', visible=True) \
             .annotate(post_count=Count('visit_count')) \
             .order_by('-visit_count')

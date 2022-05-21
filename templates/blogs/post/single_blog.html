@@ -1,5 +1,5 @@
 {% extends 'home/base/base.html' %}
-{% block title %} {{post.title }} | MultiBlogs {% endblock %}
+{% block title %} {{post.title }} | Socrato {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
@@ -27,7 +27,7 @@
 					</p>
 					<h1 class="display-4 secondfont mb-3 font-weight-bold">{{ post.title }}</h1>
 					<p class="mb-3">
-						 Analysts told CNBC that the currency could hit anywhere between $1.35-$1.40 if the deal gets passed through the U.K. parliament.
+                        {{ post.detail|truncatechars:300|safe }}
 					</p>
 					<div class="d-flex align-items-center">
                     {% if p.author.author_image %}
@@ -69,7 +69,7 @@
 		</div>
 		<div class="col-md-12 col-lg-8">
 			<article class="article-post">
-                <p>{{ post.detail }}</p>
+                <p>{{ post.detail|safe }}</p>
 			</article>
 			<div class="border p-5 bg-lightblue">
 				<div class="row justify-content-between">
@@ -119,7 +119,7 @@
 				{% else %}
 				<div style="border-radius: 10px; margin: 5px; padding: 25px; background-color: #b3d3c0;">
 					<p><strong>{{ p.name }}</strong> at {{ p.created_at }}</p>
-					<p style="padding: 20px; background-color: #c5e6d3; border-radius: 7px; border:0.5px solid #c5c5c5">{{ p.body }}</p>
+					<p style="padding: 20px; background-color: #c5e6d3; border-radius: 7px; border:0.5px solid #c5c5c5">{{ p.body|safe }}</p>
 				</div>
 				{% endif %}
 				{% endfor %}
@@ -145,7 +145,7 @@
 					<a class="text-dark" href="{% url 'single_blog' first.id %}"> {{ first.title}} </a>
 					</h2>
 					<p class="card-text">
-						{{first.detail|truncatechars:150}}
+						{{first.detail|truncatechars:150|safe}}
 					</p>
 					<div>
 						<small class="d-block">
