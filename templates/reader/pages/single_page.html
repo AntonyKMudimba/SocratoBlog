@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socrato | Blog | {{ post.title }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/animate.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/font.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/li-scroller.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/slick.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/jquery.fancybox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/theme.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/assets/css/style.css" %}">
+    <!--[if lt IE 9]>
+    <script src="{% static "/assets/js/html5shiv.min.js" %}"></script>
+    <script src="{% static "/assets/js/respond.min.js" %}"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+</div>
+<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="container">
+    <section id="navArea">
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav main_nav">
+                    <li class="active"><a href="{% url "home" %}"><span class="fa fa-home desktop-home"></span><span
+                            class="mobile-show">Home</span></a></li>
+                    {% for cat in category %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'catagory' cat.slug %}">{{ cat }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <section id="contentSection">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="left_content">
+                    <div class="single_page">
+                        <ol class="breadcrumb">
+                            <li><a href="{% url "home" %}">Home</a></li>
+                            <li class="active"><a href="#">{{ post.category.name }}</a></li>
+                        </ol>
+                        <h1>{{ post.title }}</h1>
+                        <div class="post_commentbox"><a href="#"><i class="fa fa-user"></i>{{ post.get_author }}</a>
+                            <span><i
+                                    class="fa fa-calendar"></i>{{ post.created_at | timesince }} ago</span> <a href="#"><i
+                                    class="fa fa-tags"></i>{{ post.post.catagories }}</a>
+                        </div>
+                        <div class="single_page_content"><img class="img-center" src="{{ post.image_url }}"
+                                                              alt="">
+                            <p>{{ post.detail|safe }}</p>
+                        </div>
+                        <div class="social_link">
+                            <ul class="sociallink_nav">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="related_post">
+                            <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>
+                            <ul class="spost_nav wow fadeInDown animated">
+                                {% for news in r_post %}
+                                    <li>
+                                        <div class="media"><a class="media-left" href="{% url 'single_blog' news.id %}">
+                                            <img
+                                                    src="{{ news.image_url }}" alt=""> </a>
+                                            <div class="media-body"><a class="catg_title"
+                                                                       href="{% url 'single_blog' news.id %}">{{ news.title }} </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <aside class="right_content">
+                    <div class="single_sidebar">
+                        <h2><span>Popular Post</span></h2>
+                        <ul class="spost_nav">
+                            {% for news in popular %}
+                                <li>
+                                    <div class="media wow fadeInDown"><a href="{% url 'single_blog' news.id %}"
+                                                                         class="media-left"> <img
+                                            alt="" src="{{ news.image_url }}"> </a>
+                                        <div class="media-body"><a href="{% url 'single_blog' news.id %}"
+                                                                   class="catg_title"> {{ news.title }}</a></div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="single_sidebar wow fadeInDown">
+                        <h2><span>Sponsor</span></h2>
+                        <a class="sideAdd" href="#"><img
+                                src="https://cdn.pixabay.com/photo/2018/08/14/15/32/coming-3605857_1280.jpg" alt=""></a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="footer_top">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="footer_widget wow fadeInLeftBig">
+                        <h2>Flickr Images</h2>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="footer_widget wow fadeInDown">
+                        <h2>Tag</h2>
+                        <ul class="tag_nav">
+                            {% for cat in category %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'catagory' cat.slug %}">{{ cat }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="footer_widget wow fadeInRightBig">
+                        <h2>Contact</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <address>
+                            Perfect News,1238 S . 123 St.Suite 25 Town City 3333,USA Phone: 123-326-789 Fax: 123-546-567
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <p class="copyright">Copyright &copy; 2022 <a href="../index.html">The Socrato</a></p>
+            <p class="developer">Developed By Socrato</p>
+        </div>
+    </footer>
+</div>
+<script src="{% static "/assets/js/jquery.min.js" %}"></script>
+<script src="{% static "/assets/js/wow.min.js" %}"></script>
+<script src="{% static "/assets/js/bootstrap.min.js" %}"></script>
+<script src="{% static "/assets/js/slick.min.js" %}"></script>
+<script src="{% static "/assets/js/jquery.li-scroller.1.0.js" %}"></script>
+<script src="{% static "/assets/js/jquery.newsTicker.min.js" %}"></script>
+<script src="{% static "/assets/js/jquery.fancybox.pack.js" %}"></script>
+<script src="{% static "/assets/js/custom.js" %}"></script>
+</body>
+</html>

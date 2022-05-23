@@ -25,73 +25,72 @@
 
 
 
-    <div class="container pt-4 pb-4 " style="margin-bottom: 70px;">
-        <div class="row">
-            <div class="col-lg-6">
+        <div class="container pt-4 pb-4 " style="margin-bottom: 70px;">
+            <div class="row">
+                <div class="col-lg-6">
 
-                <div class="card border-0 mb-4 box-shadow h-xl-300">
-                    <div style="background-image: url(./assets/img/demo/3.jpg); ">
-                        <img src="{{ first.image_url }}"
-                             style="height: 200px; background-size: cover; background-repeat: no-repeat; width: 100%;"
-                             alt="">
-                    </div>
-                    <div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
-                        <h2 class="h4 font-weight-bold">
-                            <a class="text-dark" href="{% url 'single_blog' first.id %}"> {{ s_post.title }} </a>
-                        </h2>
-                        <p class="card-text">
-                            {{ s_post.detail|truncatechars:250|safe }}
-                        </p>
-                        <div>
-                            <small class="d-block">
-                                {% if s_post.author.author_image %}
-                                    <img height="20" class="rounded-circle shadow" style="border-radius: 50%;"
-                                         src="{{ s_post.author.author_image.url }}">
-                                {% else %}
-                                    <img class="rounded-circle shadow" height="20"
-                                         src="https://www.pngarts.com/files/11/Avatar-PNG-Transparent-Image.png" alt="">
-                                {% endif %}
-                                <a class="text-muted"
-                                   href="./author.html">{{ s_post.author.author.username }}</a></small>
-                            <small class="text-muted">{{ s_post.created_at | timesince }} ago . {{ s_post.visit_count }}
-                                views</small>
+                    <div class="card border-0 mb-4 box-shadow h-xl-300">
+                        <div style="background-image: url(./assets/img/demo/3.jpg); ">
+                            <img src="{{ first.image_url }}"
+                                 style="height: 200px; background-size: cover; background-repeat: no-repeat; width: 100%;"
+                                 alt="">
                         </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-lg-6">
-
-                <div class="flex-md-row mb-4 box-shadow h-xl-300">
-                    {% for p in last_post %}
-                        <div class="mb-3 d-flex align-items-center">
-                            <img height="80" src="{{ p.image_url }}">
-                            <div class="pl-3">
-                                <h2 class="mb-2 h6 font-weight-bold">
-                                    <a class="text-dark" href="./article.html">{{ p.title }}</a>
-                                </h2>
-                                <div class="card-text text-muted small">
-                                    Jake Bittle in LOVE/HATE
-                                </div>
-                                <small class="text-muted">Dec 12 &middot; 5 min read</small>
+                        <div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
+                            <h2 class="h4 font-weight-bold">
+                                <a class="text-dark" href="{% url 'single_blog' first.id %}"> {{ s_post.title }} </a>
+                            </h2>
+                            <p class="card-text">
+                                {{ s_post.detail|truncatechars:150|safe }}
+                            </p>
+                            <div>
+                                <small class="d-block">
+                                    {% if s_post.author.author_image %}
+                                        <img height="20" class="rounded-circle shadow" style="border-radius: 50%;"
+                                             src="{{ s_post.author.author_image.url }}">
+                                    {% else %}
+                                        <img class="rounded-circle shadow" height="20"
+                                             src="https://www.pngarts.com/files/11/Avatar-PNG-Transparent-Image.png" alt="">
+                                    {% endif %}
+                                    <a class="text-muted"
+                                       href="./author.html">{{ s_post.author.author.username }}</a></small>
+                                <small class="text-muted">{{ s_post.created_at | timesince }} ago . {{ s_post.visit_count }}
+                                    views</small>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
 
                 </div>
-            </div>
 
+                <div class="col-lg-6">
+
+                    <div class="flex-md-row mb-4 box-shadow h-xl-300">
+                        {% for p in last_post %}
+                            <div class="mb-3 d-flex align-items-center">
+                                <img height="80" src="{{ p.image_url }}">
+                                <div class="pl-3">
+                                    <h2 class="mb-2 h6 font-weight-bold">
+                                        <a class="text-dark" href="./article.html">{{ p.title }}</a>
+                                    </h2>
+                                    <div class="card-text text-muted small">
+                                        Jake Bittle in LOVE/HATE
+                                    </div>
+                                    <small class="text-muted">Dec 12 &middot; 5 min read</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
 
 
 
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-md-8">
+            <div class="col-md-7 pl-7">
                 <h5 class="font-weight-bold spanborder"><span>All Stories</span></h5>
-
                 {% for p in post %}
                     <div class="mb-3 d-flex justify-content-between">
                         <div class="pr-3">
@@ -122,7 +121,7 @@
 
 
             </div>
-            <div class="col-md-4 pl-4">
+            <div class="col-md-3">
                 <h5 class="font-weight-bold spanborder"><span>Popular</span></h5>
                 <ol class="list-featured">
                     <li>

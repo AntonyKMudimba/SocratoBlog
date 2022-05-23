@@ -42,6 +42,15 @@ class HomeView(View):
                                                                                                         '-created_at')[
                        :5]
         post_obj = Blog.objects.all().filter(status='active', visible=True).order_by('category', '-created_at')
+        business = Blog.objects.filter(category=1,
+                                       status='active', visible=True) \
+            .order_by('-created_at')
+        technology = Blog.objects.filter(category=2,
+                                         status='active', visible=True) \
+            .order_by('-created_at')
+        politics = Blog.objects.filter(category=2,
+                                       status='active', visible=True) \
+            .order_by('-created_at')
         # As per Templates Views
         first_post = featured_obj.first()
         s_post = featured_obj[1]
@@ -51,10 +60,13 @@ class HomeView(View):
             'f_post': featured_obj,
             'first': first_post,
             's_post': s_post,
-            'last_post': last_post
+            'last_post': last_post,
+            'business': business,
+            "technology": technology,
+            "politics": politics
 
         }
-        return render(request, 'home/index.html', context)
+        return render(request, 'reader/index.html', context)
 
 
 # single blog views
@@ -64,6 +76,7 @@ class SingleBlogView(View):
         post_obj.visit_count = post_obj.visit_count + 1
         post_obj.save()
         releted_post = Blog.objects.filter(author=post_obj.author).exclude(id=id).order_by('-id')[:4]
+        popular = Blog.objects.all()[:5]
         # As per templates views 
         first_post = releted_post.first()
         last_post = releted_post[1:]
@@ -72,9 +85,10 @@ class SingleBlogView(View):
             'post': post_obj,
             'r_post': releted_post,
             'first': first_post,
-            'last': last_post
+            'last': last_post,
+            'popular': popular
         }
-        return render(request, 'blogs/post/single_blog.html', context)
+        return render(request, 'reader/pages/single_page.html', context)
 
 
 # Catagory View
@@ -102,7 +116,7 @@ class CatagoryView(View):
             'pop': popular_post,
             'f_post': featured_post,
         }
-        return render(request, 'blogs/category/category.html', context)
+        return render(request, 'reader/pages/category.html', context)
 
 
 # tag View
@@ -144,7 +158,7 @@ class SearchView(View):
         else:
             posts = post.filter(
                 Q(title__icontains=search) |
-                Q(catagories__name__icontains=search) |
+                Q(category__name__icontains=search) |
                 Q(detail__icontains=search)
 
             )

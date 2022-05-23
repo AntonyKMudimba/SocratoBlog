@@ -5,9 +5,7 @@
     {% if catagory %}
         <div class="container mt-5 mb-5">
             <div class="row">
-
                 <div class="col-md-8">
-
                     {% if messages %}
                         <div class="messages">
                             {% for message in messages %}
@@ -21,7 +19,6 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-
                     <h5 class="font-weight-bold spanborder"><span>Featured in {{ catagory.name }}</span></h5>
                     <div class="card border-0 mb-5 box-shadow">
                         <div style="background-image: url(./assets/img/demo/1.jpg); ">
@@ -57,7 +54,7 @@
                                     <a class="text-dark" href="{% url 'single_blog' p.id %}"> {{ p.title }} </a>
                                 </h2>
                                 <p>
-                                    {{ p.detail |truncatechars:200|safe }}
+                                    {{ p.detail |truncatechars:100|safe }}
                                 </p>
                                 <div class="card-text text-muted small">
                                     {% if p.author.author_image %}
@@ -106,8 +103,6 @@
                         </nav>
                     {% endif %}
                     <!-- End paginations -->
-
-
                 </div>
                 <div class="col-md-4 pl-4">
                     <div class="sticky-top">
