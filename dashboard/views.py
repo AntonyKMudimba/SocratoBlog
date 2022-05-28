@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from blog.models import Blog, Category, Tag
-from .forms import ArticleForm
+from .forms import ArticleForm, AuthorForm
 from .models import Author
 
 
@@ -94,7 +94,7 @@ class AuthorProfile(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        author = request.user
+        author = Author.objects.get(author=request.user)
         context = {
             'author': author
         }
@@ -108,24 +108,19 @@ class EditAuthor(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        return render(request, 'dashboard/user/edit_profile.html')
+        author = Author.objects.get(author=request.user)
+        form = AuthorForm()
+        return render(request, 'dashboard/user/edit_profile.html', {"author": author, "form": form})
 
     def post(self, request):
-        obj = request.user.author
-        obj.author_image = request.POST.get('image')
-        obj.first_name = request.POST.get('fname')
-        obj.last_name = request.POST.get('lname')
-        obj.email = request.POST.get('email')
-        # mail_obj = Author.objects.filter(email=obj.email)
-        # if mail_obj == obj.email:
-        #     messages.success(request,'Your profile has been updated Successfully')
-        #     return redirect('profile')
-        # elif mail_obj:
-        #     messages.warning(request,'sorry Mail already used')
-        #     return redirect ('edit')
-        # else:
-        obj.save()
-        # obj = Author.objects.update(first_name=first_name, last_name=last_name)
+        Author.objects.filter(author=request.user).update(first_name=request.POST.get('fname'),
+                                                          last_name=request.POST.get('lname'),
+                                                          email=request.POST.get('email'),
+                                                          about=request.POST.get('about'),
+                                                          facebook=request.POST.get('facebook'),
+                                                          twitter=request.POST.get('twitter'),
+                                                          instagram=request.POST.get('instagram'),
+                                                          phone=request.POST.get('phone'))
         messages.success(request, 'Your profile has been updated Successfully')
         return redirect('profile')
 
