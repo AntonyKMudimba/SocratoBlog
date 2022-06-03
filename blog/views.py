@@ -75,15 +75,15 @@ class SingleBlogView(View):
         post_obj = get_object_or_404(Blog, id=id)
         post_obj.visit_count = post_obj.visit_count + 1
         post_obj.save()
-        releted_post = Blog.objects.filter(author=post_obj.author).exclude(id=id).order_by('-id')[:4]
+        related_post = Blog.objects.filter(author=post_obj.author).exclude(id=id).order_by('-id')[:4]
         popular = Blog.objects.all()[:5]
         # As per templates views 
-        first_post = releted_post.first()
-        last_post = releted_post[1:]
+        first_post = related_post.first()
+        last_post = related_post[1:]
 
         context = {
             'post': post_obj,
-            'r_post': releted_post,
+            'r_post': related_post,
             'first': first_post,
             'last': last_post,
             'popular': popular

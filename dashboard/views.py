@@ -95,8 +95,12 @@ class AuthorProfile(View):
 
     def get(self, request):
         author = Author.objects.get(author=request.user)
+        articles = Blog.objects.filter(author=author)
+        if articles.count() > 3:
+            articles = articles[:3]
         context = {
-            'author': author
+            'author': author,
+            'articles': articles
         }
         return render(request, 'dashboard/user/profile.html', context)
 
