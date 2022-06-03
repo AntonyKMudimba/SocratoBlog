@@ -209,9 +209,7 @@ django_heroku.settings(locals())
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-AWS_ACCESS_KEY_ID = 'AKIA2TJDVYPATHOYVKF7'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'socrato'
+
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
